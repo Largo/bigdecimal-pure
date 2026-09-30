@@ -1,0 +1,47 @@
+name: Publish to RubyGems
+
+# Run by hand from the Actions tab: "Run workflow", choosing the release's
+# tag (v0.1.0, say) under "Use workflow from". Running from a branch is
+# refused, so what is published is exactly the tagged, tested commit.
+#
+# rubygems/release-gem runs `rake release`, which builds the gem, sees the
+# tag already exists and so pushes nothing to git, then pushes the gem.
+# Authentication is RubyGems trusted publishing: rubygems.org trusts this
+# workflow file and the "rubygems" environment, so no API key is stored.
+# Renaming either breaks publishing until the trusted publisher on
+# rubygems.org is updated to match.
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: rubygems
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Refuse anything but a version tag
+        if: github.ref_type != 'tag' || !startsWith(github.ref_name, 'v')
+        run: |
+          echo "::error::Run this from a release tag (Use workflow from > Tags), not ${GITHUB_REF_NAME}"
+          exit 1
+
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      - name: Check the tag matches the gem version
+        run: |
+          version=$(ruby -e 'require "./lib/bigdecimal_pure/version"; print BigDecimalPure::VERSION')
+          if [ "v$version" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match version $version"
+            exit 1
+          fi
+
+      - uses: rubygems/release-gem@v1
