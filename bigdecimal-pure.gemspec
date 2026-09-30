@@ -10,8 +10,9 @@ Gem::Specification.new do |spec|
 
   spec.summary  = 'BigDecimal in pure Ruby, used only where the native one is missing.'
   spec.description = "`require 'bigdecimal'` loads the native bigdecimal when it is installed " \
-                     'and a pure Ruby BigDecimal on Rational otherwise, for ruby.wasm and ' \
-                     'other places without a C compiler.'
+                     'and otherwise a pure Ruby BigDecimal that behaves like bigdecimal 4.x, ' \
+                     'NaN, modes, limit and BigMath to any precision included, for ruby.wasm ' \
+                     'and other places without a C compiler.'
   spec.homepage = 'https://github.com/Largo/bigdecimal-pure'
   spec.license  = 'MIT'
   spec.required_ruby_version = '>= 3.1'

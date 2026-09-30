@@ -21,8 +21,27 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      # pure (forced), native (through this gem's lib) and the fallback with
-      # gems disabled, each in its own process.
+      # pure (forced), native (through this gem's lib), pure against native
+      # case by case, and the fallback with gems disabled, each in its own
+      # process.
       - run: bundle exec rake test
       - name: Build the gem
         run: gem build --strict bigdecimal-pure.gemspec
+
+  wasm:
+    name: ruby.wasm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # CRuby 4.0 compiled to WebAssembly, the package Ren's sandbox loads.
+      - run: npm install --no-save --prefix tmp/npm @ruby/4.0-wasm-wasi@latest
+      - run: bundle exec rake wasm
+        env:
+          RUBY_WASM_DIST: tmp/npm/node_modules/@ruby/4.0-wasm-wasi/dist

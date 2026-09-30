@@ -1,0 +1,31 @@
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - pkg/**/*
+    - tmp/**/*
+
+# .gitattributes stores LF; a Windows checkout may show CRLF.
+Layout/EndOfLine:
+  Enabled: false
+
+# Numeric code: x, y, w (digits), s (scale), k and n are the usual names.
+Naming/MethodParameterName:
+  MinNameLength: 1
+
+# Rounding, parsing and the series are long by nature; the differential
+# test is what keeps them honest.
+Metrics:
+  Exclude:
+    - lib/bigdecimal_pure.rb
+    - lib/bigdecimal_pure/**/*
+    - test/**/*
+
+# bigdecimal/util reopens the core number classes, one after the other.
+Style/OneClassPerFile:
+  Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - lib/bigdecimal_pure/util.rb

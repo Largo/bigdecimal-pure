@@ -1,0 +1,434 @@
+# Edge cases found while reading bigdecimal 4.1.3; one expression per line.
+BigDecimal(1) / 0
+BigDecimal(-1) / 0
+BigDecimal(0) / 0
+BigDecimal(1) / BigDecimal("0")
+BigDecimal(1).div(0)
+BigDecimal(1).div(0, 5)
+BigDecimal(1) % 0
+BigDecimal("NaN")
+BigDecimal("  -Infinity  ")
+BigDecimal("+Infinity")
+BigDecimal("-0")
+BigDecimal("-0").sign
+BigDecimal("-0").to_s
+BigDecimal("-0").to_s("F")
+BigDecimal("NaN") == BigDecimal("NaN")
+BigDecimal("NaN") <=> 1
+BigDecimal("NaN") < 1
+BigDecimal("Infinity") > 10**100
+BigDecimal("Infinity").to_i
+BigDecimal("Infinity").to_f
+BigDecimal("NaN").to_f
+BigDecimal("Infinity") + BigDecimal("-Infinity")
+BigDecimal("Infinity") * 0
+BigDecimal("Infinity").precision
+BigDecimal("1") / 3
+BigDecimal("2") / 3
+BigDecimal("1.2345678901234567890123") / 7
+BigDecimal("1") / BigDecimal("3.00000000000000000000000000000000000001")
+BigDecimal("1").sqrt(0)
+BigDecimal("2").sqrt(10)
+BigDecimal("2").sqrt(50)
+BigDecimal(2.5, 1)
+BigDecimal(0.1, 3)
+BigDecimal(1.0/3)
+BigDecimal(1.0/3, 16)
+BigDecimal(1.0/3, 17)
+BigDecimal(0.1)
+BigDecimal(1e300)
+BigDecimal(5e-324)
+BigDecimal(Rational(1,3), 5)
+BigDecimal(Rational(1,3))
+BigDecimal("1") + Rational(1,3)
+BigDecimal("1.123456789012345678901234567890123456789") + Rational(1,3)
+BigDecimal("1") * Rational(1,3)
+BigDecimal("1e-10")
+BigDecimal("1.")
+BigDecimal(".5")
+BigDecimal("1e")
+BigDecimal("1_000")
+BigDecimal("1__000")
+BigDecimal("0x10")
+BigDecimal("  12  ")
+BigDecimal("12 3")
+BigDecimal("#12")
+BigDecimal("1.5d2")
+BigDecimal("Infinityx")
+BigDecimal("infinity")
+BigDecimal("nan")
+BigDecimal("1e99999999999999999999")
+BigDecimal("1e-99999999999999999999")
+BigDecimal.interpret_loosely("12abc")
+BigDecimal.interpret_loosely("abc")
+BigDecimal.interpret_loosely("1.5e")
+BigDecimal.interpret_loosely("1_2_3.4_5e1_0")
+"12abc".to_d
+"1.2.3".to_d
+" 1e5 ".to_d
+BigDecimal.mode(BigDecimal::EXCEPTION_ALL)
+BigDecimal.mode(BigDecimal::ROUND_MODE)
+BigDecimal.limit
+BigDecimal("1.23456789")._dump
+BigDecimal("1234567890.123456789")._dump
+BigDecimal("NaN")._dump
+BigDecimal("-0")._dump
+BigDecimal("1234567890.123456789").split
+BigDecimal("NaN").split
+BigDecimal("-Infinity").split
+BigDecimal("0").split
+BigDecimal("-0").split
+BigDecimal("0.00123").exponent
+BigDecimal("Infinity").exponent
+BigDecimal("12345.6789").to_s("3F")
+BigDecimal("12345.6789").to_s("+3E")
+BigDecimal("12345.6789").to_s(" F")
+BigDecimal("12345.6789").to_s(4)
+BigDecimal("-12345.6789").to_s("2")
+BigDecimal("1e20").to_s("F")
+BigDecimal("1e-20").to_s("F")
+BigDecimal("Infinity").to_s("+F")
+BigDecimal("NaN").to_s("+F")
+BigDecimal("0").to_s("+F")
+BigDecimal("0").to_s("+")
+BigDecimal("-0").to_s("+F")
+BigDecimal.limit(3); [BigDecimal("1.23456"), BigDecimal(123456), BigDecimal(1.23456), BigDecimal(Rational(1,3), 10), BigDecimal(Rational(1,3), 0)]
+BigDecimal.limit(3); x = BigDecimal("1.23456"); [-x, x.abs, x + 0, x - 0, x * 1, x / 1, x.round(4), x.floor(4), x.add(0, 5), x.mult(1, 5), x.div(1, 5), x.sub(0, 0), x.frac, x.fix, x % 1, x.remainder(1), x.divmod(1), x.sqrt(0), x ** 2, x.power(2, 6), x.to_s, x.truncate(5), BigDecimal(x)]
+BigDecimal.limit(3); x = BigDecimal("123456"); [x + 1, x * 1, x / 7, x.add(1, 0), 10**20 + BigDecimal(1)]
+BigDecimal.limit(3); BigDecimal.mode(BigDecimal::ROUND_MODE, :down); [BigDecimal("1.23999") + 0, BigDecimal("1.23999") * 1]
+BigDecimal.limit(10); BigDecimal("1") / 3
+BigDecimal.limit(40); BigDecimal("1") / 3
+BigDecimal.limit(-1)
+BigDecimal.limit(nil)
+BigDecimal.limit(5); BigDecimal.limit(nil)
+BigDecimal.limit(5); BigDecimal.save_limit { BigDecimal.limit(7); BigDecimal.limit }
+BigDecimal.limit(5); BigDecimal.save_limit { BigDecimal.limit(7) }; BigDecimal.limit
+BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true); BigDecimal("NaN")
+BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true); BigDecimal(0) / 0
+BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true); BigDecimal("Infinity") - BigDecimal("Infinity")
+BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true); BigDecimal::NAN
+BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true); BigDecimal::NAN + 1
+BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true); BigDecimal(Float::NAN)
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal("Infinity")
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal("-Infinity")
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal(1) / 0
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal("1e99999999999999999999")
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal::INFINITY * 2
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); -BigDecimal::INFINITY
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal::INFINITY.abs
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal::INFINITY.to_s
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal::INFINITY > 1
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal(1) < Float::INFINITY
+BigDecimal.mode(BigDecimal::EXCEPTION_ZERODIVIDE, true); BigDecimal(1) / 0
+BigDecimal.mode(BigDecimal::EXCEPTION_ZERODIVIDE, true); BigDecimal(0) / 0
+BigDecimal.mode(BigDecimal::EXCEPTION_ZERODIVIDE, true); BigDecimal(1).div(0, 3)
+BigDecimal.mode(BigDecimal::EXCEPTION_UNDERFLOW, true); BigDecimal("1e-99999999999999999999")
+BigDecimal.mode(BigDecimal::EXCEPTION_ALL, true)
+BigDecimal.mode(BigDecimal::EXCEPTION_ALL, true); BigDecimal.mode(BigDecimal::EXCEPTION_ALL)
+BigDecimal.mode(BigDecimal::EXCEPTION_OVERFLOW, true)
+BigDecimal.mode(BigDecimal::EXCEPTION_ALL, 1)
+BigDecimal.mode(BigDecimal::ROUND_MODE, :banker)
+BigDecimal.mode(BigDecimal::ROUND_MODE, :foo)
+BigDecimal.mode(BigDecimal::ROUND_MODE, 99)
+BigDecimal.mode(BigDecimal::ROUND_MODE, "up")
+BigDecimal.mode(BigDecimal::ROUND_MODE, :ceil)
+BigDecimal.mode(0)
+BigDecimal.mode(512)
+BigDecimal.mode(BigDecimal::ROUND_MODE, BigDecimal::ROUND_HALF_EVEN); [BigDecimal("2.5").round, BigDecimal("2.345").round(2), BigDecimal(1) / 3 * 3, BigDecimal("0.125").round(2)]
+BigDecimal.save_rounding_mode { BigDecimal.mode(BigDecimal::ROUND_MODE, :up) }; BigDecimal.mode(BigDecimal::ROUND_MODE)
+BigDecimal.save_exception_mode { BigDecimal.mode(BigDecimal::EXCEPTION_NaN, true) }; BigDecimal.mode(BigDecimal::EXCEPTION_NaN)
+Thread.new { BigDecimal.limit(7) }.join; BigDecimal.limit
+BigDecimal("2.5").round(half: :even)
+BigDecimal("2.5").round(half: :down)
+BigDecimal("2.5").round(half: nil)
+BigDecimal("2.5").round(half: :foo)
+BigDecimal("2.5").round(0, half: :even)
+BigDecimal("2.5").round(0, :banker)
+BigDecimal("2.5").round(0, BigDecimal::ROUND_UP)
+BigDecimal("2.5").round(nil)
+BigDecimal("12345").round(-2)
+BigDecimal("12345").round(-2).class
+BigDecimal("12345").round(2).class
+BigDecimal("5").round(-10, :up)
+BigDecimal("5").round(-9, :up)
+BigDecimal("5").ceil(-10)
+BigDecimal("-5").floor(-10)
+BigDecimal("5").truncate(-10)
+BigDecimal("1.5").round(0, :half_even)
+BigDecimal("NaN").round
+BigDecimal("NaN").round(2)
+BigDecimal("Infinity").round(2)
+BigDecimal("Infinity").floor
+BigDecimal("-0").round(2)
+BigDecimal("-0.001").round(2)
+BigDecimal("-0.001").round
+BigDecimal("-0.001").ceil(2)
+BigDecimal("0.5").round
+BigDecimal("-0.5").round
+BigDecimal("1.23").floor(1.9)
+BigDecimal("1.23").round(1.9)
+BigDecimal.new(1)
+BigDecimal.allocate
+BigDecimal(1).respond_to?(:precs)
+BigDecimal(1).frozen?
+BigDecimal("1", exception: :foo)
+BigDecimal("1", exception: nil)
+BigDecimal(nil)
+BigDecimal(nil, exception: false)
+BigDecimal(Object.new)
+BigDecimal(:sym)
+BigDecimal("1\0")
+BigDecimal("1\0", exception: false)
+BigDecimal(Complex(1, 2))
+BigDecimal(Complex(1.5, 0))
+BigDecimal(1, -1)
+BigDecimal(1, "3")
+BigDecimal(1.5, 2.7)
+BigDecimal(Rational(1,3), 0)
+BigDecimal(Rational(-2,3), 3)
+BigDecimal(BigDecimal("1.23456"), 2)
+BigDecimal(1.0/3, 0)
+BigDecimal(123.456, 2)
+BigDecimal(0.30000000000000004)
+BigDecimal(-0.0)
+BigDecimal(1e23)
+BigDecimal(1.7976931348623157e308)
+BigDecimal(2.2250738585072014e-308, 5)
+BigDecimal(-5).frac
+BigDecimal("-0.5").fix
+BigDecimal("-0.5").frac
+BigDecimal("NaN").frac
+BigDecimal(1) + Complex(1, 2)
+BigDecimal(1) == Complex(1, 0)
+BigDecimal(1) + "1"
+BigDecimal(1) + nil
+BigDecimal(1) < "1"
+BigDecimal(1) == "1"
+(BigDecimal(1) <=> "1")
+BigDecimal(1).coerce("1")
+BigDecimal(1).coerce(2.5)
+BigDecimal(1).coerce(Rational(1,3))
+Rational(1,3) + BigDecimal(1)
+BigDecimal("0.33333333333333333333333333333333") == Rational(1,3)
+BigDecimal(1) / Rational(1,3)
+2 ** BigDecimal("0.5")
+BigDecimal(2) ** BigDecimal("0.5")
+BigDecimal(2) ** 0.5
+BigDecimal(2) ** Rational(1,2)
+BigDecimal(2) ** -1
+BigDecimal(3) ** -1
+BigDecimal(3) ** -2
+BigDecimal("1.5") ** 100
+BigDecimal(2).power(10, 3)
+BigDecimal(-8) ** BigDecimal("0.5")
+BigDecimal(0) ** -1
+BigDecimal("-0") ** -1
+BigDecimal("-0") ** -2
+BigDecimal(2) ** BigDecimal::INFINITY
+BigDecimal("0.5") ** BigDecimal::INFINITY
+BigDecimal(-2) ** BigDecimal::INFINITY
+BigDecimal::INFINITY ** -1
+BigDecimal(-BigDecimal::INFINITY) ** -3
+BigDecimal(10) ** 10**20
+BigDecimal("0.1") ** 10**20
+BigDecimal(2) ** nil
+BigDecimal(2).power(2, -1)
+BigDecimal(1) / BigDecimal::INFINITY
+BigDecimal(-1) / BigDecimal::INFINITY
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal(1) / BigDecimal::INFINITY
+BigDecimal.mode(BigDecimal::EXCEPTION_INFINITY, true); BigDecimal(1) + BigDecimal::INFINITY
+BigDecimal::INFINITY / BigDecimal::INFINITY
+BigDecimal::INFINITY % 2
+BigDecimal(5) % BigDecimal::INFINITY
+BigDecimal(-5) % BigDecimal::INFINITY
+BigDecimal(-5).divmod(BigDecimal::INFINITY)
+BigDecimal(-5).remainder(BigDecimal::INFINITY)
+BigDecimal(-7).divmod(2)
+BigDecimal(-7).remainder(2)
+BigDecimal(7).divmod(BigDecimal("-2.5"))
+BigDecimal("-4") % 2
+BigDecimal("0") % 3
+BigDecimal("-0") % 3
+BigDecimal("7.5").div(2)
+BigDecimal("-7.5").div(2)
+BigDecimal("1e30").divmod(7)
+BigDecimal("1").divmod(BigDecimal("1e-30"))
+BigDecimal(4).sqrt(10)
+BigDecimal.mode(BigDecimal::ROUND_MODE, :down); BigDecimal(4).sqrt(10)
+BigDecimal.mode(BigDecimal::ROUND_MODE, :up); BigDecimal(4).sqrt(10)
+BigDecimal.mode(BigDecimal::ROUND_MODE, :down); BigDecimal(2).sqrt(10)
+BigDecimal("-0").sqrt(10)
+BigDecimal(-1).sqrt(10)
+BigDecimal("NaN").sqrt(10)
+BigDecimal::INFINITY.sqrt(1)
+BigDecimal(2).sqrt
+BigDecimal(2).sqrt(-1)
+BigDecimal(2).sqrt(2.5)
+BigDecimal("1e-100").sqrt(5)
+BigDecimal("12345678901234567890").sqrt(0)
+BigDecimal(0).hash == BigDecimal("-0").hash
+BigDecimal("1.0").hash == BigDecimal("1").hash
+BigDecimal("1").precision_scale
+BigDecimal("123.456").precision_scale
+BigDecimal("0.00123").precision_scale
+BigDecimal("1e20").precision_scale
+BigDecimal("-1e-20").precision_scale
+BigDecimal("1234567890123456789").n_significant_digits
+BigDecimal("1e20").n_significant_digits
+BigDecimal("0.1")._dump
+BigDecimal("123456789")._dump
+BigDecimal("1234567890")._dump
+BigDecimal("0.000000001")._dump
+BigDecimal("0.0000000001")._dump
+BigDecimal("1e100")._dump
+(BigDecimal(1)/3)._dump
+BigDecimal._load("18:0.1e1")
+BigDecimal._load("0.1e1")
+BigDecimal._load("x:0.1e1")
+BigDecimal._load("9:NaN")
+BigDecimal._load("9:1.5 ")
+Marshal.load(Marshal.dump(BigDecimal("-1.5")))
+BigDecimal("12.5").to_digits
+BigDecimal("-0.5").to_digits
+BigDecimal("0.001").to_digits
+BigDecimal("1e20").to_digits
+Rational(1,3).to_d
+Rational(1,3).to_d(5)
+Complex(1.5,0).to_d
+Complex(1,1).to_d
+nil.to_d
+BigDecimal("1.5").to_r
+BigDecimal("1e-400").to_f
+BigDecimal("1e400").to_f
+BigDecimal("-1e400").to_f
+BigDecimal("0.1").to_f
+BigDecimal("123456789012345678901234567890").to_f
+BigDecimal("2.5e-324").to_f
+BigDecimal("1").exponent
+BigDecimal("-1.5e-10")._decimal_shift(3)
+BigDecimal(1).clone.equal?(BigDecimal(1))
+x = BigDecimal(1); x.dup.equal?(x)
+BigDecimal("3.7").fix
+BigDecimal("3.7").truncate
+BigDecimal("3.7").truncate(0)
+BigDecimal("3.75").truncate(1)
+BigDecimal("1").to_s(0)
+BigDecimal("1").to_s(nil)
+BigDecimal("1").to_s(:F)
+BigDecimal("123.45").to_s("F3")
+BigDecimal("123.45").to_s("  +3F")
+BigDecimal("0.000123").to_s("2F")
+BigDecimal("-0.000123").to_s("3E")
+BigDecimal("1234567").to_s("3F")
+BigDecimal("1234567").to_s("10F")
+BigDecimal(1).nonzero?
+BigDecimal(0).nonzero?
+BigDecimal("NaN").zero?
+BigDecimal("-0").zero?
+BigDecimal("-0") == 0
+BigDecimal("-0").negative?
+BigDecimal("NaN").positive?
+BigDecimal(1).integer?
+BigDecimal("Infinity").infinite?
+BigDecimal("-Infinity").infinite?
+BigDecimal("-Infinity").sign
+BigDecimal("NaN").sign
+BigDecimal(-3).sign
+[BigDecimal("NaN")].include?(BigDecimal("NaN"))
+BigDecimal("1").eql?(1)
+{BigDecimal("1") => 1}[1]
+1.eql?(BigDecimal(1))
+BigDecimal(1).between?(0, 2)
+BigDecimal(1).clamp(2, 3)
+BigDecimal("1.5").to_i.class
+BigDecimal("1e30").to_i
+BigDecimal("-1.9").to_i
+BigDecimal(2).fdiv(3)
+BigMath.gamma(BigDecimal::NAN, 10)
+BigMath.gamma(BigDecimal::INFINITY, 10)
+BigMath.gamma(-BigDecimal::INFINITY, 10)
+BigMath.gamma(BigDecimal(0), 10)
+BigMath.gamma(BigDecimal("-0"), 10)
+BigMath.gamma(BigDecimal(-1), 10)
+BigMath.gamma(BigDecimal(5), 10)
+BigMath.gamma(BigDecimal("0.5"), 30)
+BigMath.gamma(BigDecimal("-2.5"), 30)
+BigMath.gamma(BigDecimal("171.5"), 30)
+BigMath.gamma(BigDecimal("100000.5"), 20)
+BigMath.gamma(BigDecimal("1e-30"), 20)
+BigMath.gamma(BigDecimal("-1e-30"), 20)
+BigMath.gamma(BigDecimal("-3.0000000000000000000001"), 20)
+BigMath.lgamma(BigDecimal::NAN, 10)
+BigMath.lgamma(BigDecimal::INFINITY, 10)
+BigMath.lgamma(-BigDecimal::INFINITY, 10)
+BigMath.lgamma(BigDecimal(0), 10)
+BigMath.lgamma(BigDecimal(-1), 10)
+BigMath.lgamma(BigDecimal(1), 10)
+BigMath.lgamma(BigDecimal(2), 10)
+BigMath.lgamma(BigDecimal(3), 10)
+BigMath.lgamma(BigDecimal("0.5"), 30)
+BigMath.lgamma(BigDecimal("-2.5"), 30)
+BigMath.lgamma(BigDecimal("-3.5"), 30)
+BigMath.lgamma(BigDecimal("1.0000001"), 30)
+BigMath.lgamma(BigDecimal("2.00000000000000000000000000000000000000000000000001"), 30)
+BigMath.lgamma(BigDecimal("10000000000.5"), 20)
+BigMath.erf(BigDecimal::NAN, 10)
+BigMath.erf(BigDecimal::INFINITY, 10)
+BigMath.erf(-BigDecimal::INFINITY, 10)
+BigMath.erf(BigDecimal(0), 10)
+BigMath.erf(BigDecimal(1), 30)
+BigMath.erf(BigDecimal(-1), 30)
+BigMath.erf(BigDecimal(10), 30)
+BigMath.erf(BigDecimal("1e-10"), 30)
+BigMath.erf(BigDecimal("6000000000"), 30)
+BigMath.erfc(BigDecimal::NAN, 10)
+BigMath.erfc(BigDecimal::INFINITY, 10)
+BigMath.erfc(-BigDecimal::INFINITY, 10)
+BigMath.erfc(BigDecimal(0), 10)
+BigMath.erfc(BigDecimal(1), 30)
+BigMath.erfc(BigDecimal(-1), 30)
+BigMath.erfc(BigDecimal(10), 30)
+BigMath.erfc(BigDecimal(30), 30)
+BigMath.erfc(BigDecimal(5), 30)
+BigMath.erfc(BigDecimal("6000000000"), 30)
+BigMath.tanh(BigDecimal("1e21"), 10)
+BigMath.tanh(BigDecimal("100"), 10)
+BigMath.exp(BigDecimal("1e20"), 10)
+BigMath.exp(BigDecimal("-1e20"), 10)
+BigMath.exp(BigDecimal("1e19"), 10)
+BigMath.sin(BigDecimal(0), 10)
+BigMath.sin(BigDecimal("-0"), 10)
+BigMath.cos(BigDecimal(0), 10)
+BigMath.atan(BigDecimal("-0"), 10)
+BigMath.sinh(BigDecimal("-0"), 10)
+BigMath.tan(BigDecimal("-0"), 10)
+BigMath.asin(BigDecimal("-0"), 10)
+BigMath.cbrt(BigDecimal("-0"), 10)
+BigMath.cbrt(BigDecimal("-8"), 10)
+BigMath.log(BigDecimal("-0"), 10)
+BigMath.log(BigDecimal(1), 10)
+BigMath.log(Complex(1,1), 10)
+BigMath.log("1", 10)
+BigMath.log(1, 0)
+BigMath.log(1, nil)
+BigMath.log(1, 2.5)
+BigMath.exp(Rational(1,3), 10)
+BigMath.atan2(BigDecimal(0), BigDecimal(-1), 10)
+BigMath.atan2(BigDecimal("-0"), BigDecimal(-1), 10)
+BigMath.atan2(BigDecimal("-0"), BigDecimal(1), 10)
+BigMath.atan2(BigDecimal(1), BigDecimal(0), 10)
+BigMath.atan2(BigDecimal::INFINITY, -BigDecimal::INFINITY, 10)
+BigMath.log10(BigDecimal(0), 10)
+BigMath.log2(BigDecimal::INFINITY, 10)
+BigMath.log2(BigDecimal("0.125"), 10)
+BigMath.expm1(BigDecimal("-100"), 10)
+BigMath.expm1(BigDecimal("-1000"), 10)
+BigMath.frexp(BigDecimal("123.456"))
+BigMath.frexp(0)
+BigMath.ldexp(BigDecimal("0.123"), 3)
+BigMath.PI(0)
+BigMath.E(10)
+BigMath.hypot(3, 4, 10)
+BigMath.acosh(BigDecimal("0.5"), 10)
+BigMath.atanh(BigDecimal(1), 10)
+BigMath.log1p(BigDecimal(-2), 10)
