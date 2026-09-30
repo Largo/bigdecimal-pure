@@ -41,8 +41,13 @@ Not supported: NaN and Infinity (they raise), `BigDecimal.limit` and `.mode`,
 precision bookkeeping. `BigMath` goes through Float, so it is good to about 15
 digits whatever precision is asked for.
 
-Unlike [hanami-wasm's shim](https://github.com/katafrakt/hanami-wasm)
-(`BigDecimal(v) = v.to_i`), the value is kept: `BigDecimal("0.1")` is not 0.
+## Thanks
+
+This gem only stands in where the real one cannot run. The real one is
+[ruby/bigdecimal](https://github.com/ruby/bigdecimal), and its behaviour is
+what this gem copies. Thank you to its authors and maintainers: Shigeo
+Kobayashi, who wrote it, Kenta Murata, Zachary Scott, tompng, and everyone
+who has contributed to it.
 
 ## Tests
 
