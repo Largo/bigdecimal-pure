@@ -5,8 +5,8 @@ require_relative 'lib/bigdecimal_pure/version'
 Gem::Specification.new do |spec|
   spec.name     = 'bigdecimal-pure'
   spec.version  = BigDecimalPure::VERSION
-  spec.authors  = ['Andi']
-  spec.email    = ['andi@idogawa.com']
+  spec.authors  = ['Andi Idogawa']
+  spec.email    = ['web@idogawa.com']
 
   spec.summary  = 'BigDecimal in pure Ruby, used only where the native one is missing.'
   spec.description = "`require 'bigdecimal'` loads the native bigdecimal when it is installed " \
