@@ -16,20 +16,36 @@ module BigDecimalPure
   def native? = defined?(::BigDecimal) && !pure? ? true : false
 
   # Loads the native `feature` ("bigdecimal", "bigdecimal/util", ...), or
-  # returns false when there is none. BIGDECIMAL_PURE=1 forces false.
+  # returns false when there is none or it does not load. BIGDECIMAL_PURE=1
+  # forces false.
+  #
+  # The native gem's Ruby files can be there without its C extension: a
+  # Bundler-built ruby.wasm installs the bigdecimal gem when another gem
+  # depends on it, but has no bigdecimal.so. Its bigdecimal.rb then raises
+  # LoadError on `require 'bigdecimal.so'`, and the pure class has to load.
   def require_native(feature)
     return false if ENV['BIGDECIMAL_PURE'] == '1'
 
     activate_native_gem
     path = native_path(feature)
     if path
-      require path
-      true
+      require_native_file(path, feature)
     elsif feature == 'bigdecimal'
       require_native_extension
     else
       false
     end
+  end
+
+  # `require path`, false on LoadError. A BigDecimal that the failed file
+  # left half defined is removed, so the pure class can take its place.
+  def require_native_file(path, feature)
+    had_bigdecimal = defined?(::BigDecimal)
+    require path
+    true
+  rescue LoadError
+    Object.send(:remove_const, :BigDecimal) if feature == 'bigdecimal' && !had_bigdecimal && defined?(::BigDecimal)
+    false
   end
 
   # The bigdecimal gem, installed next to this one: put its lib on the load

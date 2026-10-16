@@ -5,12 +5,15 @@
 # BigDecimal loads is decided once per process.
 require 'bundler/gem_tasks'
 
-desc 'Pure checks, native loading, pure against native, and the fallback'
+desc 'Pure checks, native loading, pure against native, and the fallbacks'
 task :test do
   ruby 'test/pure_test.rb'
   ruby 'test/native_test.rb'
   ruby 'test/compare_test.rb'
-  Bundler.with_unbundled_env { ruby '--disable-gems test/fallback_test.rb' }
+  Bundler.with_unbundled_env do
+    ruby '--disable-gems test/fallback_test.rb'
+    ruby '--disable-gems test/broken_native_test.rb'
+  end
 end
 
 desc 'The comparison cases in ruby.wasm (needs node and RUBY_WASM_DIST)'
