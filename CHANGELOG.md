@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1] - 2026-10-16
+
+- `require 'bigdecimal'` falls back to the pure class when the native
+  bigdecimal gem's Ruby files are on the load path but its C extension does
+  not load. This is what a Bundler-built ruby.wasm looks like when another gem
+  depends on bigdecimal: the gem is installed, `bigdecimal.so` is not, and
+  0.2.0 raised `LoadError: cannot load such file -- bigdecimal.so`.
+
 ## [0.2.0] - 2026-09-30
 
 The pure class now does what bigdecimal 4.x does, where 0.1.0 did not:
@@ -32,5 +40,6 @@ ruby.wasm.
 - First release: BigDecimal in pure Ruby on Rational, taken from the ruby.wasm
   sandbox of Ren. `require 'bigdecimal'` prefers the native gem when installed.
 
+[0.2.1]: https://github.com/Largo/bigdecimal-pure/releases/tag/v0.2.1
 [0.2.0]: https://github.com/Largo/bigdecimal-pure/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Largo/bigdecimal-pure/releases/tag/v0.1.0
